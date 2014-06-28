@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   # Omniauth callback controller
-  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
+  #devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
 
 
   # Example of regular route:
