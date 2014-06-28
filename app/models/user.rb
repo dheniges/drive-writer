@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  devise :omniauthable, :omniauth_providers => [:google]
+  devise :omniauthable, :omniauth_providers => [:google_oauth2]
 
   attr_accessor :provider, :uid
 
