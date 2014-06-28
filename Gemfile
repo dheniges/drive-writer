@@ -27,7 +27,6 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 # User management
-gem 'devise'
 gem 'omniauth-google-oauth2'
 
 gem 'dotenv-rails', :groups => [:development, :test]
