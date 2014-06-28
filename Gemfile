@@ -30,6 +30,8 @@ gem 'spring',        group: :development
 gem 'devise'
 gem 'omniauth-google-oauth2'
 
+gem 'dotenv-rails', :groups => [:development, :test]
+
 gem 'haml-rails'
 
 gem 'therubyracer'
