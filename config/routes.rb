@@ -5,6 +5,12 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'home#index'
 
+  get 'sign_out' => 'home#sign_out', as: :sign_out
+
+  # Omniauth callback
+  get 'auth/google/callback' => 'omniauth_callbacks#google'
+  #get 'auth/google_oauth2'
+
   # Omniauth callback controller
   #devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
 
