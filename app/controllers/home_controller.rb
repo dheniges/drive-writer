@@ -4,6 +4,7 @@ class HomeController < ApplicationController
   end
 
   def sign_out
+    @user.sign_out
     reset_session
     redirect_to root_path
   end

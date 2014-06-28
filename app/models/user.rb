@@ -24,4 +24,23 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  # Cleanup to run if user signs out
+  def sign_out
+    Rails.cache.delete(keyring(:documents))
+  end
+
+  def keyring(key)
+    case key.to_sym
+    when :documents then "#{cache_prefix}documents"
+    else
+      nil
+    end
+  end
+
+  protected
+
+  def cache_prefix
+    "#{self.uid}:"
+  end
+
 end
