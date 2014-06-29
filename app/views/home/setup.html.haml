@@ -1,0 +1,13 @@
+.jumbotron
+  %h1 Welcome!
+  %p
+    Create a root folder. We'll store this in your Google Drive account and use
+    it to manage all your projects. We will never access any files outside this root
+    folder.
+
+  = form_for(@user, url: setup_submit_path) do |f|
+    .form-group.form-inline
+      / = f.label :root_folder, 'Create a folder to store your projects'
+      = f.text_field :root_folder, class: 'form-control'
+
+      = f.submit 'Save', class: 'btn btn-primary form-inline'

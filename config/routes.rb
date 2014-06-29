@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   root 'home#index'
 
   get 'sign_out' => 'home#sign_out', as: :sign_out
+  get 'setup' => 'home#setup', as: :setup
+  patch 'setup_submit' => 'home#setup_submit', as: :setup_submit
 
   # Omniauth callback
   get 'auth/google/callback' => 'omniauth_callbacks#google'

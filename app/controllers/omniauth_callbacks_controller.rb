@@ -7,7 +7,7 @@ class OmniauthCallbacksController < ApplicationController #Devise::OmniauthCallb
     if user.persisted?
       session[:user_id] = user.id
       user.track
-      redirect_to root_path      
+      redirect_to setup_path
     else
       # Error state?
     end
