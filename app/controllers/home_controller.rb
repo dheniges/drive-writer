@@ -2,15 +2,8 @@ class HomeController < ApplicationController
 
   def index
     if @user
-
-      apps = @api_client.execute(api_method: @drive.files.list,
-                                 authorization: @api_authorization)
-
-
-      puts '###### ERROR: ' + apps.data.error['message'] if apps.data && apps.data.try(:error)
-
-      @files = apps.data.items.map(&:title)
-
+      files = @api_client.request('files.list')
+      @files = files.items.map(&:title)
     end
   end
 
