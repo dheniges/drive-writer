@@ -29,6 +29,8 @@ gem 'spring',        group: :development
 # User management
 gem 'omniauth-google-oauth2'
 
+gem 'google-api-client'
+
 gem 'dotenv-rails', :groups => [:development, :test]
 
 gem 'haml-rails'

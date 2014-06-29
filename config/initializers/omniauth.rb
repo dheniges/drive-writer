@@ -4,5 +4,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     name: 'google',
     prompt: 'select_account',
     image_aspect_ratio: 'square',
-    image_size: 30
+    image_size: 30,
+    scope: 'email,profile,drive'
 end

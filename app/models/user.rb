@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  attr_accessor :auth
+
   def self.from_omniauth(auth)
     if user = User.find_by_email(auth.info.email)
       user.provider = auth.provider
