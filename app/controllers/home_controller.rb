@@ -2,8 +2,9 @@ class HomeController < ApplicationController
 
   def index
     if @user
-      files = @api_client.request('files.list')
-      @files = files.items.map(&:title)
+      @projects = @user.projects
+      # files = @api_client.request('files.list')
+      # @files = files.items.map(&:title)
     end
   end
 

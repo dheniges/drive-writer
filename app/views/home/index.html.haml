@@ -1,8 +1,18 @@
-%div
-  Files
+/ %div
+/   Files
 
-- if @files
-  .files
-    %ul
-      - @files.each do |file|
-        %li= file
+/ - if @files
+/   .files
+/     %ul
+/       - @files.each do |file|
+/         %li= file
+
+%div#panes
+  - render_panes(@projects).each do |key, panes|
+    %div{class: "column", id: "#{key.to_s}_panes"}
+      - panes.each do |pane|
+        .panel.panel-default{id: pane['id']}
+          .panel-heading= pane['name']
+          %ul.list-group
+            - pane['items'].each do |item|
+              %li.list-group-item= link_to item['title'], item['url'], target: '_blank'

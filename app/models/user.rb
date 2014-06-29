@@ -34,25 +34,25 @@ class User < ActiveRecord::Base
 
   # Cleanup to run if user signs out
   def sign_out
-    Rails.cache.delete(keyring(:documents))
+    Rails.cache.delete(keyring(:projects))
+  end
+
+  def projects
+    @projects ||= JSON.parse(Rails.cache.read(keyring(:projects)))
   end
 
   # Get projects, sections and files
   def setup_projects(api_client)
-    options = {
-      'q' => "'#{self.root_folder_id}' in parents",
-      'fields' => 'items(alternateLink,id,kind,title)'
-    }
 
     options = Proc.new{|folder_id| 
       {
         'q' => "'#{folder_id}' in parents",
-        'fields' => 'items(alternateLink,id,kind,title)'
+        'fields' => 'items(alternateLink,id,kind,title,webViewLink)'
       }
     }
 
+    # TODO: dry it up
     projects = api_client.request('files.list', options.call(self.root_folder_id))
-
     projects_array = []
     # For each project, grab sections
     projects.items.each do |project|
@@ -60,6 +60,7 @@ class User < ActiveRecord::Base
         id: project.id,
         title: project.title,
         url: project.alternate_link,
+        web_url: project.web_view_link,        
         sections: []
       }
 
@@ -70,6 +71,7 @@ class User < ActiveRecord::Base
           id: section.id,
           title: section.title,
           url: section.alternate_link,
+          web_url: section.web_view_link,
           files: []
         }
         files = api_client.request('files.list', options.call(section.id))
@@ -77,6 +79,7 @@ class User < ActiveRecord::Base
           file_json = {
             id: file.id,
             title: file.title,
+            web_url: file.web_view_link,            
             url: file.alternate_link
           }
           section_json[:files] << file_json
@@ -86,15 +89,12 @@ class User < ActiveRecord::Base
       projects_array << project_json
     end
 
-    binding.pry
-
     Rails.cache.write(keyring(:projects), projects_array.to_json)
 
   end
 
   def keyring(key)
     case key.to_sym
-    when :documents then "#{cache_prefix}documents"
     when :projects then "#{cache_prefix}projects"
     else
       nil
