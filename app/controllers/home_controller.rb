@@ -1,11 +1,7 @@
 class HomeController < ApplicationController
 
   def index
-    if @user
-      @projects = @user.projects
-      # files = @api_client.request('files.list')
-      # @files = files.items.map(&:title)
-    end
+    @projects = @user.projects if @user
   end
 
   def setup
